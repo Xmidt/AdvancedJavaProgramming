@@ -1,3 +1,4 @@
+package assignment1;
 
 public class AggregationThread implements Runnable {
 

@@ -1,3 +1,4 @@
+package assignment1;
 
 public class MapThread implements Runnable {
 
