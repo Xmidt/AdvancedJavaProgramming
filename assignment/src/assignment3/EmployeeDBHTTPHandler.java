@@ -35,6 +35,9 @@ public class EmployeeDBHTTPHandler extends AbstractHandler {
 			HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException {
 
+		// DG: Get a database instance to work on.
+		SimpleEmployeeDB database = SimpleEmployeeDB.getInstance();
+		
 		String uri = req.getRequestURI().trim().toUpperCase();
 		
 		xmlStream = new XStream(new StaxDriver());
@@ -100,10 +103,12 @@ public class EmployeeDBHTTPHandler extends AbstractHandler {
 	                
 	            }  
 				
-				SimpleEmployeeDB.getInstance().addEmployee(emp);
+				//SimpleEmployeeDB.getInstance().addEmployee(emp);
+	            database.addEmployee(emp);
 				res.getWriter().println("Employee: " + emp.getName() + ", added.");
+				
 
-			} else if (uri.equalsIgnoreCase("/listAllEmployees")) {
+			} else if (uri.equalsIgnoreCase("/listallemployees")) {
 				
 				/*
 				 
@@ -111,7 +116,8 @@ public class EmployeeDBHTTPHandler extends AbstractHandler {
 				 
 				 */
 				
-				List<Employee> empList = SimpleEmployeeDB.getInstance().listAllEmployees();
+				//List<Employee> empList = SimpleEmployeeDB.getInstance().listAllEmployees();
+				List<Employee> empList = database.listAllEmployees();
 				res.getWriter().println(xmlStream.toXML(empList));
 
 			}

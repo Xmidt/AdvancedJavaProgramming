@@ -11,7 +11,10 @@ import org.eclipse.jetty.server.Server;
 public class EmployeeDBHTTPServer {
 
 	public static void main(String[] args) throws Exception {
-		Server myServer = new Server(8080);
+		// Starting 3 servers to match the servermapping
+		Server server1 = new Server(8080);
+		Server server2 = new Server(8088);
+		Server server3 = new Server(8089);
 		EmployeeDBHTTPHandler handler = new EmployeeDBHTTPHandler(); // This
 																		// handler
 																		// will
@@ -20,8 +23,16 @@ public class EmployeeDBHTTPServer {
 																		// incoming
 																		// HTTP
 																		// requests
-		myServer.setHandler(handler);
-		myServer.start();
-		myServer.join();
+		server1.setHandler(handler);
+		server2.setHandler(handler);
+		server3.setHandler(handler);
+		
+		server1.start();
+		server2.start();
+		server3.start();
+		
+		server1.join();
+		server2.join();
+		server3.join();
 	}
 }
